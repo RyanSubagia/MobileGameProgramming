@@ -10,7 +10,7 @@ public class SegmentGenerator : MonoBehaviour
     [SerializeField] bool creatingSegment = false;
     [SerializeField] int segmentNum;
 
-    void Start()
+    void Update()
     {
         if(creatingSegment == false)
         {
