@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] GameObject fadeOut;
     void Start()
     {
         
@@ -17,6 +18,13 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
+        StartCoroutine(StartButton());
+    }
+
+    IEnumerator StartButton()
+    {
+        fadeOut.SetActive(true);
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene(1);
     }
 }
