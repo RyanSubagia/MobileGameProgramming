@@ -5,10 +5,12 @@ using UnityEngine;
 public class SegmentGenerator : MonoBehaviour
 {
     public GameObject[] segment;
+    public int maxActiveSegments = 5;
 
     [SerializeField] int zPos = 50;
     [SerializeField] bool creatingSegment = false;
-    [SerializeField] int segmentNum;
+
+    private Queue<GameObject> activeSegments = new Queue<GameObject>();
 
     void Update()
     {
@@ -21,10 +23,15 @@ public class SegmentGenerator : MonoBehaviour
 
     IEnumerator SegmentGen()
     {
-        segmentNum = Random.Range(0, 3);
-        Instantiate(segment[segmentNum], new Vector3(0, 0, zPos), Quaternion.identity);
+        int segmentNum = Random.Range(0, segment.Length);
+        GameObject newSegment = Instantiate(segment[segmentNum], new Vector3(0, 0, zPos), Quaternion.identity);
+        activeSegments.Enqueue(newSegment);
+        if (activeSegments.Count > maxActiveSegments)
+        {
+            Destroy(activeSegments.Dequeue());
+        }
         zPos += 50;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(10);
         creatingSegment = false;
     }
 }
