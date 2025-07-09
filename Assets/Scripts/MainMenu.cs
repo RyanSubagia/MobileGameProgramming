@@ -1,30 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] GameObject fadeOut;
-    void Start()
+    public GameObject shopPanel;
+
+    public void PlayGame()
     {
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    void Update()
+    public void OpenShop()
     {
-        
+        shopPanel.SetActive(true);
     }
 
-    public void StartGame()
+    public void CloseShop()
     {
-        StartCoroutine(StartButton());
+        shopPanel.SetActive(false);
     }
 
-    IEnumerator StartButton()
+    public void QuitGame()
     {
-        fadeOut.SetActive(true);
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene(1);
+        Debug.Log("QUIT!");
+        Application.Quit();
     }
 }
