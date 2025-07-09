@@ -36,7 +36,7 @@ public class SkinManager : MonoBehaviour
     public bool IsSkinUnlocked(string skinID)
     {
 
-        string defaultSkinID = "com.infirun.game.skin_default";
+        string defaultSkinID = "com.polyrun.game.skin_default";
 
         if (skinID == defaultSkinID)
         {

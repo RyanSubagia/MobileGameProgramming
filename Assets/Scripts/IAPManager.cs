@@ -7,13 +7,34 @@ public class IAPManager : MonoBehaviour
     {
         if (product != null)
         {
-            SkinManager.instance.UnlockSkin(product.definition.id);
-            FindObjectOfType<ShopManager>()?.OnSkinPurchased();
+            string id = product.definition.id;
+            if (id == "com.polyrun.game.coin_multiplier")
+            {
+
+                ShakeMinigame minigameInstance = FindObjectOfType<ShakeMinigame>(true); 
+
+                if (minigameInstance != null)
+                {
+                    Debug.Log("ShakeMinigame FOUND ");
+                    minigameInstance.StartMinigame();
+                }
+                else
+                {
+                    Debug.LogError("FATAL ERROR:NOT FOUND MINIGAME.");
+                }
+
+                MultiplierManager.instance.PrepareMultiplier();
+            }
+            else 
+            {
+                SkinManager.instance.UnlockSkin(id);
+                FindObjectOfType<ShopManager>()?.OnSkinPurchased();
+            }
         }
     }
 
     public void OnPurchaseFailed(Product product, PurchaseFailureReason reason)
     {
-        Debug.LogWarning($"Pembelian gagal untuk {product.definition.id}, alasan: {reason}");
+        Debug.LogWarning($"Purchase Failed {product.definition.id}, reason: {reason}");
     }
 }

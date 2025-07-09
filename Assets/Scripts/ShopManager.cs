@@ -26,32 +26,37 @@ public class ShopManager : MonoBehaviour
 
     public void UpdateShopUI()
     {
+
+        string defaultSkinID = "com.polyrun.game.skin_default";
+        string selectedSkinID = PlayerPrefs.GetString("SelectedSkinID", defaultSkinID);
+
         for (int i = 0; i < skinManager.allSkins.Count; i++)
         {
             SkinData currentSkin = skinManager.allSkins[i];
             Button currentButton = skinButtons[i];
             TextMeshProUGUI buttonText = currentButton.GetComponentInChildren<TextMeshProUGUI>();
 
-            string selectedSkinID = PlayerPrefs.GetString("SelectedSkinID");
-
-            currentButton.onClick.RemoveAllListeners(); 
-
-            if (selectedSkinID == currentSkin.skinID)
+            if (skinManager.IsSkinUnlocked(currentSkin.skinID))
             {
-                buttonText.text = "Used";
-                currentButton.interactable = false;
-            }
-            else if (skinManager.IsSkinUnlocked(currentSkin.skinID))
-            {
-                buttonText.text = "Use";
-                currentButton.interactable = true;
 
-                int skinIndex = i;
-                currentButton.onClick.AddListener(() => SelectSkin(skinIndex));
+                currentButton.onClick.RemoveAllListeners();
+
+                if (selectedSkinID == currentSkin.skinID)
+                {
+                    buttonText.text = "Used";
+                    currentButton.interactable = false; 
+                }
+                else
+                {
+                    buttonText.text = "Use";
+                    currentButton.interactable = true; 
+                    int skinIndex = i;
+                    currentButton.onClick.AddListener(() => SelectSkin(skinIndex));
+                }
             }
             else
             {
-               
+                currentButton.interactable = true;
             }
         }
     }

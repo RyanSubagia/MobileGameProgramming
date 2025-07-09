@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        MultiplierManager.instance.StartOfRun();
         targetPosition = transform.position;
     }
 
