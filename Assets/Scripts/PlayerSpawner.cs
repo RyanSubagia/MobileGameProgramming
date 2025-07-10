@@ -8,6 +8,8 @@ public class PlayerSpawner : MonoBehaviour
         {
             GameObject skinToSpawn = SkinManager.instance.GetSelectedSkinPrefab();
             Instantiate(skinToSpawn, transform.position, Quaternion.identity);
+            DynamicGI.UpdateEnvironment();
+
         }
     }
 }
